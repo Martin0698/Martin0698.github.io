@@ -1,0 +1,21 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.container {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2vh;
+}
+
+.title {
+    font-family: Georgia;
+    font-size: 5rem;
+}
+
+@media only screen and (max-width: 500px) {
+    .title {
+        font-family: Georgia;
+        font-size: 3rem;
+    }
+}

@@ -1,0 +1,131 @@
+<p>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <span *ngIf="data.form == 1">Please add your files</span>
+            <span *ngIf="data.form == 2">Please add your file</span>
+            <span class="example-spacer"></span>
+            <button mat-button mat-dialog-close>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</p>
+<ng-container style="align-items: center;">
+    <div *ngIf="data.mode == 1">
+        <div *ngIf="data.form == 1" class="row justify-content-center">
+            <h1>
+                Add both of your files.
+                <span style="font-size: smaller;">
+                    (Configuration file example 
+                    <a href="assets/data.json" download>
+                        "JSON"
+                    </a>)
+                </span>
+            </h1>
+        </div>
+        <ngx-dropzone *ngIf="data.form == 1" (change)="onSelect($event, 1)">
+            <ngx-dropzone-label>Drop or click to search for your files</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f, 1)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <div *ngIf="loading" class="d-flex align-items-center">
+            <strong>Loading...</strong>
+            <div class="spinner-grow text-success ml-auto" role="status" aria-hidden="true">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <br>
+        <div *ngIf="data.form == 1" class="row justify-content-center">
+            <button class="btn btn-dark me-2" type="button" style="text-align: center;" [disabled]="!show" (click)="addFiles(1)">
+                Add files
+            </button>
+        </div>
+        <div *ngIf="data.form == 2" class="row justify-content-center">
+            <h1>Add the log file</h1>
+        </div>
+        <div *ngIf="data.form == 2">
+            <ngx-dropzone (change)="onSelect($event, 2)">
+                <ngx-dropzone-label>Drop or click to search for your log file</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files2" [removable]="true" (removed)="onRemove(f, 2)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+        </div>
+        <br>
+        <div *ngIf="data.form == 2" class="row justify-content-center">
+            <h1>Add the config manually</h1>
+        </div>
+        <div *ngIf="data.form == 2" class="row justify-content-center">
+            <form class="form">
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>File Name</mat-label>
+                    <input type="text" matInput [formControl]="fileName" placeholder="crsd.trc">
+                    <mat-error *ngIf="fileName.hasError('required')" style="color: #ff5100; font-size: small;">
+                        Please enter a file name
+                    </mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>Resource Name</mat-label>
+                    <input type="text" matInput [formControl]="resourceName" placeholder="ora.DATA.TEST02.advm">
+                    <mat-error *ngIf="resourceName.hasError('required')" style="color: #ff5100; font-size: small;">
+                        Please enter a resource name
+                    </mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>Service status</mat-label>
+                    <input type="text" matInput [formControl]="status" placeholder="Online, Start">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>Start hour</mat-label>
+                    <input type="text" matInput [formControl]="timeStart" placeholder="12:00:00">
+                    <mat-error *ngIf="timeStart.hasError('required')" style="color: #ff5100; font-size: small;">
+                        Please enter a start hour
+                    </mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>End hour</mat-label>
+                    <input type="text" matInput [formControl]="timeEnd" placeholder="13:00:00">
+                    <mat-error *ngIf="timeEnd.hasError('required')" style="color: #ff5100; font-size: small;">
+                        Please enter an end hour
+                    </mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                        <input matStartDate formControlName="start" placeholder="Start date">
+                        <input matEndDate formControlName="end" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid') && range.controls.start.hasError('required')">
+                        Invalid start date or required start date
+                    </mat-error>
+                    <mat-error *ngIf="range.controls.end.hasError('matStartDateInvalid') && range.controls.end.hasError('required')">
+                        Invalid end date or required end date
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-full-width" appearance="fill">
+                    <mat-label>Search Line</mat-label>
+                    <input type="text" matInput [formControl]="searchLine" placeholder="state changed from:">
+                </mat-form-field>
+                <div *ngIf="loading" class="d-flex align-items-center">
+                    <strong>Loading...</strong>
+                    <div class="spinner-grow text-success ml-auto" role="status" aria-hidden="true">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn btn-dark me-2" type="button" style="text-align: center;" [disabled]="!logfile" (click)="addFiles(2)">
+                        Add file
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>

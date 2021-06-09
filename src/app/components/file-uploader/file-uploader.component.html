@@ -1,0 +1,13 @@
+<ngx-dropzone *ngIf="mode == 1" (change)="onSelect($event, mode)">
+    <ngx-dropzone-label>Drop or search for yours JSON files</ngx-dropzone-label>
+    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f, mode)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+</ngx-dropzone>
+
+<ngx-dropzone *ngIf="mode == 2" (change)="onSelect($event, mode)">
+    <ngx-dropzone-label>Drop or search for yours TCR files</ngx-dropzone-label>
+    <ngx-dropzone-preview *ngFor="let f of files2" [removable]="true" (removed)="onRemove(f, mode)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+</ngx-dropzone>

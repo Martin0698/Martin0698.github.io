@@ -1,0 +1,122 @@
+<mat-toolbar style="background-color: #312D2A;">
+    <mat-toolbar-row>
+        <span>
+            <i class="bi bi-bar-chart-steps" style="color: white; font-size: 40px;"></i>
+        </span>
+        <span class="example-spacer"></span>
+        <h1 style="color: white;">ACFS</h1>
+        <span class="example-spacer"></span>
+        <form class="d-flex justify-content-end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="bi bi-person-circle" style="color: white; font-size: 35px;"></i>
+            </button>
+            <mat-menu #menu="matMenu" class="profile-dropdown">
+                <mat-card>
+                    <mat-card-title *ngIf="userName">{{userName}}</mat-card-title>
+                    <br>
+                    <mat-card-subtitle *ngIf="team">Team: {{team}}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="email">email: {{email}}</mat-card-subtitle>
+                </mat-card>
+                <button mat-menu-item (click)="helpOption()">Help</button>
+                <button mat-menu-item (click)="singOut()">Sing out</button>
+            </mat-menu>
+        </form>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="container-fluid test">
+    <div *ngIf="!logFile" class="row">
+        <mat-toolbar style="background-color: white;">
+            <mat-toolbar-row>
+                <span class="example-spacer"></span>
+                <h1 class="title">Welcome to Alveus</h1>
+                <span class="example-spacer"></span>
+                <a class="navbar-brand">
+                    <img src="assets/img/oracle-nuevo-logo.jpg" width="50" height="30" alt="logo">
+                </a>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="col col-xl-12 container">
+            <h1 style="margin-top: 1rem;">These are the steps you have to follow to add your files (logs and configuration)</h1>
+        </div>
+        <div class="col col-xl-10 container">
+            <h1>To add the files you must follow the following steps:</h1>
+            <ol>
+                <li style="font-size: large; padding: 10px;">
+                    Have the log file or log files to analyze.
+                </li>
+                <li style="font-size: large; padding: 10px;">
+                    Have the JSON file with the configuration or add the configuration manually.
+                    (Example: <a href="assets/data.json" download>JSON</a>)
+                </li>
+                <li style="font-size: large; padding: 10px;">
+                    Once we have the files ready, we click on the add files button and select the mode. 
+                    <span style="font-size: smaller;">
+                        (for manual mode we recommend that it only be used for a single service)
+                    </span>
+                    <img src="assets/img/example.png" alt="config" style="border-color: blue; border-style: dotted;">
+                </li>
+                <li style="font-size: large; padding: 10px;">
+                    After having uploaded the respective files or having added the manual configuration, we click on the button add files.
+                    <br>
+                    <div class="row">
+                        <div class="col col-lg-6">
+                            <img src="assets/img/example2.png" width="400" height="280" alt="config2" style="border-style: solid;">
+                        </div>
+                        <div class="col col-lg-6">
+                            <img src="assets/img/example3.png" width="400" height="280" alt="config2" style="border-style: solid;">
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <form class="d-flex justify-content-center">
+                <button mat-button [matMenuTriggerFor]="menu2" class="btn btn-ligth btn-sm" type="button" 
+                    style="background-color: #312D2A; color: white; font-size: large;">
+                    Add files
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+                <mat-menu #menu2="matMenu" class="profile-dropdown">
+                    <button mat-menu-item (click)="addLogConfig(1)">Add Files</button>
+                    <button mat-menu-item (click)="addLogConfig(2)">Add manually configration</button>
+                </mat-menu>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="logFile" class="row">
+        <mat-toolbar style="background-color: white;">
+            <mat-toolbar-row>
+                <!-- *ngIf="configFile && logFile" -->
+                <form *ngIf="logFile" class="d-flex justify-content-center">
+                    <button mat-button [matMenuTriggerFor]="menu2" class="btn btn-ligth btn-sm" type="button" style="background-color: #312D2A; color: white; font-size: large;">
+                        Add files
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+                    <mat-menu #menu2="matMenu" class="profile-dropdown">
+                        <button mat-menu-item (click)="addLogConfig(1)">Add Files</button>
+                        <button mat-menu-item (click)="addLogConfig(2)">Add manually configration</button>
+                    </mat-menu>
+                </form>
+                <span class="example-spacer"></span>
+                    <a class="navbar-brand">
+                        <img src="assets/img/oracle-nuevo-logo.jpg" width="50" height="30" alt="logo">
+                    </a>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <br>
+        <!--  class="row" -->
+        <div *ngIf="logFile">
+            <apx-chart 
+                [title]="chartOptions.title"
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [fill]="chartOptions.fill"
+                [legend]="chartOptions.legend"
+                [plotOptions]="chartOptions.plotOptions"
+                [states]="chartOptions.states"
+                [xaxis]="chartOptions.xaxis"
+                [yaxis]="chartOptions.yaxis"
+                [colors]="chartOptions.colors"
+                [noData]="chartOptions.noData">
+            </apx-chart>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "fileName": ["crsd.trc"],
+  "servname": "ora.DATA.TEST02.advm", 
+  "status": ["Online", "Offline", "Start"] || "null",
+  "timeStart": "17:59:14", 
+  "timeEnd": "22:00:00", 
+  "dateStart": "2021-02-25", 
+  "dateEnd": "2021-03-06",
+  "searchLine": ["state changed from: "] || "null"
+} 

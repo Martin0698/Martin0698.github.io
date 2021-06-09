@@ -1,0 +1,45 @@
+mat-grid-tile {
+    background: lightblue;
+}
+
+.cdk-overlay-pane {width: 100%;}
+.mat-menu-panel {width: 100%;}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.test {
+    display: table;
+    width: 100%;
+}
+
+.col {
+    display: table-cell;
+    padding: 16px;
+}
+
+.scroll {
+    height: 85.7vh;
+    width: auto;  
+    overflow-y: auto;
+}
+
+.container {
+    text-align: center;
+    /* vertical-align: middle; */
+    line-height: 2vh;
+}
+
+.title {
+    font-family: Georgia;
+    font-size: 5rem;
+    margin-top: 1.5rem;
+}
+
+@media only screen and (max-width: 500px) {
+    .title {
+        font-family: Georgia;
+        font-size: 3rem;
+    }
+}
