@@ -12,12 +12,12 @@ export class AddFilesService {
   constructor(private http: HttpClient) {}
 
   addFile(files: FormData): Observable<any> {
-    const url = `${this.baseUrl}/api/upload`;
+    const url = `${this.baseUrl}/api/upload/`;
     return this.http.post<any>(url, files);
   }
 
   addFileManually(files: FormData): Observable<any> {
-    const url = `${this.baseUrl}/api/upload_man`;
+    const url = `${this.baseUrl}/api/upload_man/`;
     return this.http.post<any>(url, files);
   }
 

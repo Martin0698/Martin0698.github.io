@@ -17,15 +17,15 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   getTeams(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/api/getequipos`);
+    return this.http.get<any>(`${this.baseUrl}/api/getequipos/`);
   }
 
   getRole(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/api/getrol`);
+    return this.http.get<any>(`${this.baseUrl}/api/getrol/`);
   }
 
   registerUser(user: any): Observable<any> {
-    return this.http.post<{token: string}>(`${this.baseUrl}/api/signup`, user)
+    return this.http.post<{token: string}>(`${this.baseUrl}/api/signup/`, user)
     .pipe(
       map(result => {
         localStorage.setItem('access_token', result.token);
@@ -37,7 +37,7 @@ export class LoginService {
   }
 
   loginUser(user: any): Observable<boolean> {
-    return this.http.post<{token: string}>(`${this.baseUrl}/api/signin`, user)
+    return this.http.post<{token: string}>(`${this.baseUrl}/api/signin/`, user)
     .pipe(
       map(result => {
         localStorage.setItem('access_token', result.token);
@@ -49,7 +49,7 @@ export class LoginService {
   }
 
   getUserData(email: any): Observable<any> {
-    const url = `${this.baseUrl}/api/user_data`;
+    const url = `${this.baseUrl}/api/user_data/`;
     return this.http.post<any>(url, {email: email});
   }
 
